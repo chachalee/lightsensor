@@ -58,7 +58,7 @@
 	socket.on('messageFromServerToClient', function(incomingData) {
 		console.log(incomingData);
 		socket.emit('messageFromClientToServer', "received: "+incomingData);
-		
+		console.log(incomingData)
 		update(incomingData)
 	});
 	
@@ -96,7 +96,7 @@
         // Update dataset
         // Append new data
         data = data.concat(newData)
-        // Remove old data (i.e., avoid overflows)
+        console.log(data)
         var maxNumberOfRecords = 51;
         while (data.length > maxNumberOfRecords) {
             delete data.shift();
