@@ -1,18 +1,13 @@
-var McpAdc = require ('mcp-adc');
+var mcpadc = require('mcp-spi-adc');
 
-var adc = new McpAdc.Mcp3208();
+var lightSensor = mcpadc.open(0, {speedHz: 20000}, function (err) {
+  if (err) throw err;
 
-var channel = 0;
+  setInterval(function () {
+    lightSensor.read(function (err, reading) {
+      if (err) throw err;
 
-adc.readRawValue(channel, function(value) {
-		console.log('Raw value: \t' + value);
+      console.log((reading.value * 3.3 - 0.5) * 100);
+    });
+  }, 1000);
 });
-
-adc.readVoltage(channel, function(voltage){
-		console.log("Voltage: \t" + voltage);
-	});
-	
-
-adc.readNormalizedValue(channel, function(normValue){
-		console.log("Percents: \t" + (normValue*100));
-	});
