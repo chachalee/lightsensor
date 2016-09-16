@@ -1,25 +1,18 @@
-var ADC = require('adc-pi-gpio')
+var McpAdc = require ('mcp-adc');
 
-var adc = new ADC();
+var adc = new McpAdc.Mcp3208();
 
-process.on('SIGTERM', function(){
-	adc.close();
-});
-process.on('SIGINT', function(){
-	adc.close();
-})
+var channel = 0;
 
-adc.init();
-
-adc.on('ready', function(){
-	console.log('Pins ready, listening to channel');
+adc.readRawValue(channel, function(value) {
+		console.log('Raw value: \t' + value);
 });
 
-adc.on('close', function(){
-	console.log('ADC terminated');
-	process.exit();
-});
+adc.readVoltage(channel, function(voltage){
+		console.log("Voltage: \t" + voltage);
+	});
+	
 
-adc.on('change', function(data){
-	console.log('Channel '+ data.channel + ' value is now ' + data.value + 'which in proportion is: '+ data.percent);
-});
+adc.readNormalizedValue(channel, function(normValue){
+		console.log("Percents: \t" + (normValue*100));
+	});
