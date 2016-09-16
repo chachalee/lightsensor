@@ -1,15 +1,6 @@
-var ADC = require('adc-pi-gpio'),
-	config = {
-		tolerance: 2,
-		interval: 300,
-		channels: [0],
-		SPICLK: 12,
-		SPIMISO: 16,
-		SPIMOSI: 18,
-		SPICS: 22
-	};
+var ADC = require('adc-pi-gpio')
 
-var adc = new ADC(config);
+var adc = new ADC();
 
 process.on('SIGTERM', function(){
 	adc.close();
