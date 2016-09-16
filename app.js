@@ -1,4 +1,4 @@
-var ADC = require('node_modules/adc-pi-gpio'),
+var ADC = require('/node_modules/adc-pi-gpio'),
 	config = {
 		tolerance: 2,
 		interval: 300,
